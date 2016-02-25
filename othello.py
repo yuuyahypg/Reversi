@@ -2,6 +2,7 @@
 
 import board
 import ui
+import pygame
 
 class Othello():
     """
@@ -17,10 +18,16 @@ class Othello():
         self.gui = ui.GUI()
 
     def start(self):
-        pass
+        clock = pygame.time.Clock()
+        while True:
+            clock.tick(100)
+            break
+        pygame.time.wait(1000)
+        self.restart()
 
     def restart(self):
-        pass
+        self.board = board.Board()
+        self.start()
 
 def main():
     game = Othello()

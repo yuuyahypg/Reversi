@@ -32,6 +32,10 @@ class Board():
 
         return [black, white]
 
+    def is_ended(self):
+        num_list = self.count()
+        if num_list[0] == 0 or num_list[1] == 0:
+
     def select(self, index):
         pass
 
