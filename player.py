@@ -9,11 +9,15 @@ class Human():
         color   --human's color(black or white)
         currentBoard    --current board data
     """
-    def __init__(self, color="black"):
+    def __init__(self, gui, color="black"):
+        self.gui = gui
         self.color = color
 
     def set_current_board(self, board):
         self.currentBoard = board
+
+    def move(self):
+        pass
 
 class Computer():
     """
@@ -31,3 +35,6 @@ class Computer():
 
     def set_current_board(self, board):
         self.currentBoard = board
+
+    def move(self):
+        pass

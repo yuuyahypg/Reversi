@@ -16,7 +16,7 @@ class Board():
     def check_reversible(self, index):
         pass
 
-    def get_selectable_index(self):
+    def get_selectable_index(self, color):
         pass
 
     def count(self):
@@ -34,7 +34,13 @@ class Board():
 
     def is_ended(self):
         num_list = self.count()
-        if num_list[0] == 0 or num_list[1] == 0:
+        if num_list[0] == 0 or num_list[1] == 0 or num_list[0] + num_list[1] == 64:
+            return True:
+
+        if self.get_selectable_index(BLACK) == [] and self.get_selectable_index(WHITE) == []
+            return True:
+
+        return False
 
     def select(self, index):
         pass
