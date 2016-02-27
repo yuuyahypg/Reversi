@@ -185,7 +185,10 @@ class GUI():
         """
         while True:
             for event in pygame.event.get():
-                if event.type == MOUSEBUTTONDOWN:
+                if event.type == QUIT:
+                    sys.exit(0)
+
+                elif event.type == MOUSEBUTTONDOWN:
                     (mouse_x, mouse_y) = pygame.mouse.get_pos()
 
                     # click was out of board, ignores
@@ -196,16 +199,13 @@ class GUI():
                         continue
 
                     # find place
-                    position = ( (mouse_x - self.BOARD[0]) / self.SQUARE_SIZE), \
-                               ((mouse_y - self.BOARD[1]) / self.SQUARE_SIZE)
+                    position = int((mouse_x - self.BOARD[0]) / self.SQUARE_SIZE), \
+                               int((mouse_y - self.BOARD[1]) / self.SQUARE_SIZE)
+
                     # flip orientation
                     position = (position[1], position[0])
+
                     return position
-
-                elif event.type == QUIT:
-                    sys.exit(0)
-
-            time.sleep(.05)
 
     def update_screen(self, board, blacks, whites):
         """
