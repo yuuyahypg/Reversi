@@ -55,8 +55,8 @@ class Othello():
             if self.board.get_selectable_index(self.now_playing.color) != []:
                 score, self.board = self.now_playing.move()
                 stone_lst = self.board.count()
-                self.gui.update_sreen(self.board, stone_lst[0], stone_lst[1])
-                
+                self.gui.update_screen(self.board, stone_lst[0], stone_lst[1])
+
             self.now_playing, self.other_player = self.other_player, self.now_playing
         self.gui.show_winner(winner)
         pygame.time.wait(1000)

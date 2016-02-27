@@ -218,7 +218,7 @@ class GUI():
 
         blacks_str = '%02d ' % int(blacks)
         whites_str = '%02d ' % int(whites)
-        self.showScore(blacks_str, whites_str)
+        self.show_score(blacks_str, whites_str)
         pygame.display.flip()
 
     def show_score(self, blackStr, whiteStr):

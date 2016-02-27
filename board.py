@@ -15,6 +15,9 @@ class Board():
         self.board[3][4] = self.board[4][3] = BLACK
         self.valid_pos = []
 
+    def __getitem__(self, i, j):
+        return self.board[i][j]
+
     def check_reversible(self, index):
         pass
 
@@ -237,7 +240,3 @@ class Board():
 
     def undo(self):
         pass
-
-    def print(self):
-        for i in range(8):
-            print(self.board[i])
