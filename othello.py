@@ -18,7 +18,11 @@ class Othello():
     def __init__(self):
         self.board = board.Board()
         self.gui = ui.GUI()
-        self.set_options()
+        #self.set_options()
+        self.now_playing = player.Human(self.gui, BLACK)
+        self.other_player = player.Computer(WHITE)
+        self.gui.show_game()
+        self.gui.update_screen(self.board.board, 2, 2)
 
     def set_options(self):
         """
@@ -55,7 +59,7 @@ class Othello():
             if self.board.get_selectable_index(self.now_playing.color) != []:
                 score, self.board = self.now_playing.move()
                 stone_lst = self.board.count()
-                self.gui.update_screen(self.board, stone_lst[0], stone_lst[1])
+                self.gui.update_screen(self.board.board, stone_lst[0], stone_lst[1])
 
             self.now_playing, self.other_player = self.other_player, self.now_playing
         self.gui.show_winner(winner)
