@@ -2,6 +2,8 @@ import pygame
 from pygame.locals import *
 from config import BLACK, WHITE, EMPTY, HUMAN, COMPUTER
 import os
+import sys
+import time
 
 class GUI():
     """
@@ -30,15 +32,15 @@ class GUI():
         #message
         self.BLACK_LAB_POS = (5, self.SCREEN_SIZE[1] / 4)
         self.WHITE_LAB_POS = (560, self.SCREEN_SIZE[1] / 4)
-        self.font = pygame.font.SysFont("Times New Roman", 22)
-        self.scoreFont = pygame.font.SysFont("Serif", 58)
+        self.font = pygame.font.SysFont(None, 22)
+        self.scoreFont = pygame.font.SysFont(None, 58)
 
         # image files
-        self.board_img = pygame.image.load(os.path.join("res", "board.bmp")).convert()
-        self.black_img = pygame.image.load(os.path.join("res", "black.bmp")).convert()
-        self.white_img = pygame.image.load(os.path.join("res", "white.bmp")).convert()
-        self.empty_img = pygame.image.load(os.path.join("res", "empty.bmp")).convert()
-        self.clear_img = pygame.image.load(os.path.join("res", "clear.bmp")).convert()
+        self.board_img = pygame.image.load(os.path.join("pic", "board.bmp")).convert()
+        self.black_img = pygame.image.load(os.path.join("pic", "black.bmp")).convert()
+        self.white_img = pygame.image.load(os.path.join("pic", "white.bmp")).convert()
+        self.empty_img = pygame.image.load(os.path.join("pic", "empty.bmp")).convert()
+        self.clear_img = pygame.image.load(os.path.join("pic", "clear.bmp")).convert()
 
     def show_options(self):
         """
@@ -50,7 +52,7 @@ class GUI():
         while True:
             self.screen.fill(self.BACKGROUND)
 
-            title_fnt = pygame.font.SysFont("Times New Roman", 34)
+            title_fnt = pygame.font.SysFont(None, 34)
             title = title_fnt.render("Othello", True, self.WHITE)
             title_pos = title.get_rect(centerx=self.screen.get_width() / 2, centery=60)
 
@@ -87,7 +89,7 @@ class GUI():
 
     def show_winner(self, player_color):
         self.screen.fill(pygame.Color(0, 0, 0, 50))
-        font = pygame.font.SysFont("Courier New", 34)
+        font = pygame.font.SysFont(None, 34)
         if player_color == WHITE:
             message = font.render("White player wins", True, self.WHITE)
         elif player_color == BLACK:
@@ -104,7 +106,7 @@ class GUI():
         while True:
             self.screen.fill(self.BACKGROUND)
 
-            title_fnt = pygame.font.SysFont("Times New Roman", 34)
+            title_fnt = pygame.font.SysFont(None, 34)
             title = title_fnt.render("Othello", True, self.BLUE)
             title_pos = title.get_rect(centerx=self.screen.get_width() / 2, centery=60)
 

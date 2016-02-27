@@ -3,6 +3,7 @@
 import board
 import ui
 import pygame
+import player
 from config import BLACK, WHITE, EMPTY, HUMAN, COMPUTER
 
 class Othello():
@@ -34,7 +35,7 @@ class Othello():
             self.other_player = player.Computer(WHITE)
 
         self.gui.show_game()
-        self.gui.update(self.board.board, 2, 2)
+        self.gui.update_screen(self.board.board, 2, 2)
 
     def start(self):
         clock = pygame.time.Clock()

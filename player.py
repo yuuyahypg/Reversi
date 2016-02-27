@@ -17,7 +17,16 @@ class Human():
         self.currentBoard = board
 
     def move(self):
-        pass
+        """
+        get move using gui to handle mouse
+        """
+        valid_moves = self.currentBoard.get_selectable_index(self.color)
+        while True:
+            move = self.gui.get_mouse_input()
+            if move in valid_moves:
+                break
+        self.currentBoard.select(move, self.color)
+        return 0, self.currentBoard
 
 class Computer():
     """
@@ -37,4 +46,4 @@ class Computer():
         self.currentBoard = board
 
     def move(self):
-        pass
+        return self.ai.eval(self.currentBoard, self.color)
