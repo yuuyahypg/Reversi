@@ -19,6 +19,7 @@ class GUI():
         self.BLACK = (0, 0, 0)
         self.WHITE = (255, 255, 255)
         self.BACKGROUND = (0, 0, 255)
+        self.BLUE = (0, 0, 255)
 
         # display
         self.SCREEN_SIZE = (640, 480)
@@ -73,19 +74,19 @@ class GUI():
             self.screen.blit(player1_txt, player1_pos)
             self.screen.blit(player2_txt, player2_pos)
 
-        for event in pygame.event.get():
-            if event.type == QUIT:
-                sys.exit(0)
-            elif event.type == MOUSEBUTTONDOWN:
-                (mouse_x, mouse_y) = pygame.mouse.get_pos()
-                if start_pos.collidepoint(mouse_x, mouse_y):
-                    return (player1, player2)
-                elif player1_pos.collidepoint(mouse_x, mouse_y):
-                    player1 = self.choose_player()
-                elif player2_pos.collidepoint(mouse_x, mouse_y):
-                    player2 = self.choose_player()
+            for event in pygame.event.get():
+                if event.type == QUIT:
+                    sys.exit(0)
+                elif event.type == MOUSEBUTTONDOWN:
+                    (mouse_x, mouse_y) = pygame.mouse.get_pos()
+                    if start_pos.collidepoint(mouse_x, mouse_y):
+                        return (player1, player2)
+                    elif player1_pos.collidepoint(mouse_x, mouse_y):
+                        player1 = self.choose_player()
+                    elif player2_pos.collidepoint(mouse_x, mouse_y):
+                        player2 = self.choose_player()
 
-            pygame.display.flip()
+                pygame.display.flip()
 
     def show_winner(self, player_color):
         self.screen.fill(pygame.Color(0, 0, 0, 50))
@@ -107,7 +108,7 @@ class GUI():
             self.screen.fill(self.BACKGROUND)
 
             title_fnt = pygame.font.SysFont(None, 34)
-            title = title_fnt.render("Othello", True, self.BLUE)
+            title = title_fnt.render("Othello", True, self.WHITE)
             title_pos = title.get_rect(centerx=self.screen.get_width() / 2, centery=60)
 
             human_txt = self.font.render("Human", True, self.WHITE)
