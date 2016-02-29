@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from config import BLACK, WHITE, EMPTY
 from copy import deepcopy
 
