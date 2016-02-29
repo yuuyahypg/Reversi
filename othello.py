@@ -18,11 +18,7 @@ class Othello():
     def __init__(self):
         self.board = board.Board()
         self.gui = ui.GUI()
-        #self.set_options()
-        self.now_playing = player.Human(self.gui, BLACK)
-        self.other_player = player.Computer(WHITE)
-        self.gui.show_game()
-        self.gui.update_screen(self.board.board, 2, 2)
+        self.set_options()
 
     def set_options(self):
         """
