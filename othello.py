@@ -3,8 +3,10 @@
 import board
 import ui
 import pygame
+from pygame.locals import *
 import player
 from config import BLACK, WHITE, EMPTY, HUMAN, COMPUTER
+from copy import deepcopy
 
 class Othello():
     """
@@ -19,6 +21,7 @@ class Othello():
         self.board = board.Board()
         self.gui = ui.GUI()
         self.set_options()
+        self.stack = []
 
     def set_options(self):
         """
@@ -39,6 +42,7 @@ class Othello():
 
     def start(self):
         clock = pygame.time.Clock()
+        self.stack.append(deepcopy(self.board))
         while True:
             clock.tick(100)
             if self.board.is_ended():
@@ -53,14 +57,31 @@ class Othello():
             self.now_playing.set_current_board(self.board)
 
             if self.board.get_selectable_index(self.now_playing.color) != []:
-                score, self.board = self.now_playing.move()
+                score, tmp = self.now_playing.move()
+                if tmp != None:
+                    self.board = tmp
+                    self.stack.append(deepcopy(tmp))
+                    self.now_playing, self.other_player = self.other_player, self.now_playing
+                else:
+                    self.stack.pop()
+                    self.stack.pop()
+                    self.board = deepcopy(self.stack[len(self.stack)-1])
                 stone_lst = self.board.count()
                 self.gui.update_screen(self.board.board, stone_lst[0], stone_lst[1])
+            else:
+                self.now_playing, self.other_player = self.other_player, self.now_playing
 
-            self.now_playing, self.other_player = self.other_player, self.now_playing
+
+        self.wait()
         self.gui.show_winner(winner)
-        pygame.time.wait(1000)
+        self.wait()
         self.restart()
+
+    def wait(self):
+        while True:
+            for event in pygame.event.get():
+                if event.type == MOUSEBUTTONDOWN:
+                    return
 
     def restart(self):
         self.board = board.Board()

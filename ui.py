@@ -34,6 +34,7 @@ class GUI():
         self.BLACK_LAB_POS = (5, self.SCREEN_SIZE[1] / 4)
         self.WHITE_LAB_POS = (560, self.SCREEN_SIZE[1] / 4)
         self.font = pygame.font.SysFont(None, 22)
+        self.undoFont = pygame.font.SysFont(None, 30)
         self.scoreFont = pygame.font.SysFont(None, 58)
 
         # image files
@@ -148,6 +149,9 @@ class GUI():
         self.put_stone((4, 4), WHITE)
         self.put_stone((3, 4), BLACK)
         self.put_stone((4, 3), BLACK)
+        undo = self.undoFont.render("UNDO", True, self.WHITE)
+        self.undo_pos = undo.get_rect(centerx=590, centery=420)
+        self.screen.blit(undo, self.undo_pos)
         pygame.display.flip()
 
     def put_stone(self, pos, color):
@@ -194,7 +198,10 @@ class GUI():
                        mouse_x < self.BOARD[0] or \
                        mouse_y > self.BOARD_SIZE + self.BOARD[1] or \
                        mouse_y < self.BOARD[1]:
-                        continue
+                        if self.undo_pos.collidepoint(mouse_x, mouse_y):
+                            return (-1, -1)
+                        else:
+                            continue
 
                     # find place
                     position = ( (mouse_x - self.BOARD[0]) / self.SQUARE_SIZE), \
@@ -216,6 +223,8 @@ class GUI():
             for j in range(8):
                 if board[i][j] != 0:
                     self.put_stone((i, j), board[i][j])
+                elif board[i][j] == 0:
+                    self.clear_square((i, j))
 
         blacks_str = '%02d ' % int(blacks)
         whites_str = '%02d ' % int(whites)
