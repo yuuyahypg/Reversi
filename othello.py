@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 import board
 import ui
@@ -56,7 +57,13 @@ class Othello():
                 break
             self.now_playing.set_current_board(self.board)
 
-            if self.board.get_selectable_index(self.now_playing.color) != []:
+            selectable_index = self.board.get_selectable_index(self.now_playing.color)
+            if selectable_index != []:
+
+                #人間の番なら置ける場所をガイドする
+                if isinstance(self.now_playing, player.Human):
+                    self.gui.guide_screen(selectable_index)
+
                 score, tmp = self.now_playing.move()
                 if tmp != None:
                     self.board = tmp

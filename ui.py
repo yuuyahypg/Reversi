@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import pygame
 from pygame.locals import *
 from config import BLACK, WHITE, EMPTY, HUMAN, COMPUTER
@@ -41,6 +43,7 @@ class GUI():
         self.board_img = pygame.image.load(os.path.join("pic", "board.bmp")).convert()
         self.black_img = pygame.image.load(os.path.join("pic", "black.bmp")).convert()
         self.white_img = pygame.image.load(os.path.join("pic", "white.bmp")).convert()
+        self.guide_img = pygame.image.load(os.path.join("pic", "guide.bmp")).convert()
         self.empty_img = pygame.image.load(os.path.join("pic", "empty.bmp")).convert()
         self.clear_img = pygame.image.load(os.path.join("pic", "clear.bmp")).convert()
 
@@ -173,6 +176,19 @@ class GUI():
         self.screen.blit(img, (x, y), img.get_rect())
         pygame.display.flip()
 
+    def put_guide_stone(self, pos):
+        """
+        draw pieces in the given position
+        """
+        pos = (pos[1], pos[0])
+        img = self.guide_img
+
+        x = pos[0] * self.SQUARE_SIZE + self.BOARD[0]
+        y = pos[1] * self.SQUARE_SIZE + self.BOARD[1]
+
+        self.screen.blit(img, (x, y), img.get_rect())
+        pygame.display.flip()
+
     def clear_square(self, pos):
         """
         draw background image in the given position
@@ -190,7 +206,10 @@ class GUI():
         """
         while True:
             for event in pygame.event.get():
-                if event.type == MOUSEBUTTONDOWN:
+                if event.type == QUIT:
+                    sys.exit(0)
+
+                elif event.type == MOUSEBUTTONDOWN:
                     (mouse_x, mouse_y) = pygame.mouse.get_pos()
 
                     # click was out of board, ignores
@@ -204,16 +223,13 @@ class GUI():
                             continue
 
                     # find place
-                    position = ( (mouse_x - self.BOARD[0]) / self.SQUARE_SIZE), \
-                               ((mouse_y - self.BOARD[1]) / self.SQUARE_SIZE)
+                    position = int((mouse_x - self.BOARD[0]) / self.SQUARE_SIZE), \
+                               int((mouse_y - self.BOARD[1]) / self.SQUARE_SIZE)
+
                     # flip orientation
                     position = (position[1], position[0])
+
                     return position
-
-                elif event.type == QUIT:
-                    sys.exit(0)
-
-            time.sleep(.05)
 
     def update_screen(self, board, blacks, whites):
         """
@@ -230,6 +246,10 @@ class GUI():
         whites_str = '%02d ' % int(whites)
         self.show_score(blacks_str, whites_str)
         pygame.display.flip()
+
+    def guide_screen(self, index):
+        for pos in index:
+            self.put_guide_stone(pos)
 
     def show_score(self, blackStr, whiteStr):
         text = self.scoreFont.render(blackStr, True, self.BLACK, self.BACKGROUND)
