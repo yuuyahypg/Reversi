@@ -25,6 +25,8 @@ class Human():
             move = self.gui.get_mouse_input()
             if move in valid_moves:
                 break
+            elif move == (-1, -1):
+                return 0, None
         self.currentBoard.select(move, self.color)
         return 0, self.currentBoard
 
