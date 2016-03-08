@@ -20,6 +20,12 @@ class Board():
     def __getitem__(self, i, j):
         return self.board[i][j]
 
+    def get(self):
+        return self.board
+
+    def new(self, board):
+        self.board = deepcopy(board)
+
     def check_reversible(self, index):
         pass
 
@@ -163,8 +169,14 @@ class Board():
     def select(self, move, color):
         if move in self.valid_pos:
             self.board[move[0]][move[1]] = color
+            reverse_count = 0
+
             for i in range(1, 9):
-                self.flip(i, move, color)
+                reverse_count += self.flip(i, move, color)
+
+            return reverse_count
+
+        return 0
 
     def flip(self, direction, position, color):
         """
@@ -229,6 +241,8 @@ class Board():
                 for pos in places:
                     # flips
                     self.board[pos[0]][pos[1]] = color
+
+        return len(places)
 
     def next_state(self, color):
         """

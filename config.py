@@ -5,3 +5,4 @@ WHITE = 2
 EMPTY = 0
 HUMAN = "human"
 COMPUTER = "computer"
+DEPTH = 3

@@ -61,8 +61,8 @@ class Othello():
             if selectable_index != []:
 
                 #人間の番なら置ける場所をガイドする
-                if isinstance(self.now_playing, player.Human):
-                    self.gui.guide_screen(selectable_index)
+                #if isinstance(self.now_playing, player.Human):
+                #    self.gui.guide_screen(selectable_index)
 
                 score, tmp = self.now_playing.move()
                 if tmp != None:
